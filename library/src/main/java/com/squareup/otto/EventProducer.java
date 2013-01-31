@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
 class EventProducer {
 
   /** Object sporting the producer method. */
-  private final Object target;
+  final Object target;
   /** Producer method. */
   private final Method method;
   /** Object hash code. */

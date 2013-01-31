@@ -191,7 +191,9 @@ public class Bus {
       EventProducer previousProducer = producersByType.putIfAbsent(type, producer);
       //checking if the previous producer existed
       if (previousProducer != null) {
-        throw new IllegalArgumentException("Producer method for type " + type + " already registered.");
+        throw new IllegalArgumentException("Producer method for type " + type
+          + " found on type " + producer.target.getClass()
+          + ", but already registered by type " + previousProducer.target.getClass() + ".");
       }
       Set<EventHandler> handlers = handlersByType.get(type);
       if (handlers != null && !handlers.isEmpty()) {
