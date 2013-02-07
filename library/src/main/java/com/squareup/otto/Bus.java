@@ -43,8 +43,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author Cliff Biffle
  * @author Jake Wharton
  */
-public class Bus
-  implements OttoBus {
+public class Bus implements OttoBus {
   public static final String DEFAULT_IDENTIFIER = "default";
 
   /** All registered event handlers, indexed by event type. */
@@ -129,8 +128,7 @@ public class Bus
     return "[Bus \"" + identifier + "\"]";
   }
 
-  @Override
-  public void register(Object object) {
+  @Override public void register(Object object) {
     enforcer.enforce(this);
 
     Map<Class<?>, EventProducer> foundProducers = handlerFinder.findAllProducers(object);
@@ -197,8 +195,7 @@ public class Bus
     dispatch(event, handler);
   }
 
-  @Override
-  public void unregister(Object object) {
+  @Override public void unregister(Object object) {
     enforcer.enforce(this);
 
     Map<Class<?>, EventProducer> producersInListener = handlerFinder.findAllProducers(object);
@@ -235,8 +232,7 @@ public class Bus
     }
   }
 
-  @Override
-  public void post(Object event) {
+  @Override public void post(Object event) {
     enforcer.enforce(this);
 
     Set<Class<?>> dispatchTypes = flattenHierarchy(event.getClass());
