@@ -30,19 +30,18 @@ public interface ThreadEnforcer {
    *
    * @param bus Event bus instance on which an action is being performed.
    */
-  void enforce(OttoBus bus);
+  void enforce(Bus bus);
 
-
-  /** A {@link ThreadEnforcer} that does no verification or enforcement for any action. */
-  ThreadEnforcer NONE = new ThreadEnforcer() {
-    @Override public void enforce(OttoBus bus) {
+  /** A {@link ThreadEnforcer} that does no verification. */
+  ThreadEnforcer ANY = new ThreadEnforcer() {
+    @Override public void enforce(Bus bus) {
       // Allow any thread.
     }
   };
 
   /** A {@link ThreadEnforcer} that confines {@link Bus} methods to the main thread. */
   ThreadEnforcer MAIN = new ThreadEnforcer() {
-    @Override public void enforce(OttoBus bus) {
+    @Override public void enforce(Bus bus) {
       if (Looper.myLooper() != Looper.getMainLooper()) {
         throw new IllegalStateException("Event bus " + bus + " accessed from non-main thread " + Looper.myLooper());
       }
